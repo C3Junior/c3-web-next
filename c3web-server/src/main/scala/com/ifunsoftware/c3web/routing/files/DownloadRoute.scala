@@ -5,7 +5,7 @@ import com.ifunsoftware.c3web.models.FileEntryJson._
 import com.ifunsoftware.c3web.models.MetadataEntryJson._
 import com.ifunsoftware.c3web.service.{ FilesService }
 import org.slf4j.LoggerFactory
-import spray.http.{ MediaTypes, HttpHeaders, StatusCodes }
+import spray.http.{ HttpData, MediaTypes, HttpHeaders, StatusCodes }
 import spray.httpx.SprayJsonSupport
 import spray.httpx.marshalling.BasicMarshallers
 import spray.routing.HttpService
@@ -49,9 +49,9 @@ trait DownloadRouteTrait extends HttpService with SprayJsonSupport {
               implicit val bufferMarshaller = {
                 BasicMarshallers.byteArrayMarshaller(contentType)
               }
-              autoChunk(ChunkSizeMagnet.fromChunkSize(5000000)) {
+              autoChunk(ChunkSizeMagnet.fromChunkSize(50000000)) {
                 {
-                  complete(file.get.content.get)
+                  complete(HttpData(file.get.content.get))
                 }
               }
             }

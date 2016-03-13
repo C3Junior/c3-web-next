@@ -25,5 +25,5 @@ object FileData {
     File("/273a4a8c-40c8-437d-8e58-9c56dc5f48dd/file3.txt",
       new Metadata("file5", "10241024", "admin", "tag1", "other", "23.12.2015"), Some("TEST5".getBytes), "text/plain", false),
     File("/273a4a8c-40c8-437d-8e58-9c56dc5f48dd/OS.cv",
-      new Metadata("Computer Science Controlled vocabulary", "10241024", "admin", "tag1", "other", "23.12.2015"), Some(sampleCvText.getBytes), "text/plain", false))
+      new Metadata("Computer Science Controlled vocabulary", "10241024", "admin", "tag1", "other", "23.12.2015"), Some(sampleCvText.toCharArray.map(_.toByte)), "text/plain", false))
 }

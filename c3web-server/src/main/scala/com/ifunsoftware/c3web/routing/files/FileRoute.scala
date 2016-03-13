@@ -62,7 +62,7 @@ trait FileRouteTrait extends HttpService with SprayJsonSupport {
           log.debug("posting to create a File")
 
           val metadata = new Metadata(name, size, "admin", tags, fileType, Calendar.getInstance().getTime().toString)
-          val file = new File(url, metadata, Option(fileContent.getBytes), contentType, false)
+          val file = new File(url, metadata, Option(fileContent.toCharArray.map(_.toByte)), contentType, false)
           val newFile = filesService.addFile(file)
 
           complete(newFile);
