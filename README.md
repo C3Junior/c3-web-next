@@ -7,6 +7,14 @@
 
 # The Sarma version of C3 Web
 
+## Run grunt tasks
+
+````
+    > grunt build:dev
+    or
+    > grunt build:prod
+````
+
 ## How To Run
 
 ```
