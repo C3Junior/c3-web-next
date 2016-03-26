@@ -1,14 +1,20 @@
 <div class="" ng-controller="group.groupFilesController">
     <div>
         <ol class="breadcrumb">
-            <li><a href="#">Имя группы</a></li>
+            <li><a href="#">{{group.groupname}}</a></li>
             <li class="active">Данные</li>
+            <div class="pull-right">
+                <div class="btn-group" role="group" aria-label="..."><a ng-click="goBack()" ref="tooltip"
+                                                                        title="Back"><i
+                        class="fa fa-arrow-circle-left"></i></a></div>
+                <div class="btn-group" role="group" aria-label="..."><a href="#/upload{{(currentPath)}}" ref="tooltip"
+                                                                        title="Add Resource"><i class="fa fa-file"></i></a>
+                </div>
+                <div class="btn-group" role="group" aria-label="..."><a href="#/createFolder{{(currentPath)}}"
+                                                                        ref="tooltip" title="Create Folder"><i
+                        class="fa fa-folder-open"></i></a></div>
+            </div>
         </ol>
-        <div class="btn-toolbar" role="toolbar" id="toolbar">
-            <div class="btn-group" role="group" aria-label="..."><a ng-click="goBack()" ref="tooltip" title="Back"><i class="fa fa-arrow-circle-left"></i></a></div>
-            <div class="btn-group" role="group" aria-label="..."><a href="#/upload{{(currentPath)}}" ref="tooltip" title="Add Resource"><i class="fa fa-file"></i></a></div>
-            <div class="btn-group" role="group" aria-label="..."><a href="#/createFolder{{(currentPath)}}" ref="tooltip" title="Create Folder"><i class="fa fa-folder-open"></i></a></div>
-        </div>
     </div>
     <div class="container-fluid">
         <div class="row-fluid">
@@ -17,8 +23,7 @@
                     <table class="table table-stripped">
                         <thead>
                         <tr>
-                            <th>UID</th>
-                            <th>Type</th>
+                            <th></th>
                             <th>Name</th>
                             <th>Size</th>
                             <th>Owner</th>
@@ -27,8 +32,10 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="element in elements| filter: query " >
-                            <td>{{element.uid}}</td>
-                            <td><img alt="{{element.type}}" ng-src="img/{{element.type}}.png" class="thumb"/></td>
+                            <td></i>
+                                <div ng-if="element.isFolder"><i class="fa fa-folder-o"></i></div>
+                                <div ng-if="!element.isFolder"><i class="fa fa-file-o"/></div>
+                            </td>
                             <td><a ng-click="showDetails(element.name)">{{element.name}}</a></td>
                             <td>{{element.size/1024/1024|number:2}} Mb</td>
                             <td>{{element.owner}}</td>
@@ -45,7 +52,7 @@
                     <div class="modal-body">
                         <div class="row-fluid">
                             <div class="span4">
-                                <img ng-src="img/{{element.type}}.png" />
+                                <i class="fa fa-file-o"></i>
                             </div>
                             <div class="span8">
                                 <p>UID: {{element.uid}}</p>

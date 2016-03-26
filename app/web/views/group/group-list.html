@@ -1,20 +1,20 @@
 <section id="services">
     <div class="container">
         <div class="col-lg-9 col-md-9">
-            <div class="input-group">
+            <div class="row input-group" style="padding-bottom: 5px">
                 <input type="text" class="form-control input-rounded" name="default">
                 <span class="input-group-btn">
                     <button class="btn btn-success disabled" type="button">Filter</button>
                 </span>
             </div>
-            <div class="panel panel-default plain toggle">
-                <!-- Start .panel -->
+            <div class="row panel panel-default plain toggle">
                 <div class="panel-heading">
                     <h4 class="panel-title"><i class="fa fa-comments"></i>Groups</h4>
                 </div>
                 <div class="panel-body">
                     <ul class="list-group recent-comments">
-                        <li class="list-group-item clearfix comment-success" ng-repeat="group in groups | orderBy:'+groupname'">
+                        <li class="list-group-item clearfix comment-success"
+                            ng-repeat="group in groups | orderBy:'+groupname'">
                             <div class="avatar pull-left mr15">
                                 <i class="fa fa-comments fa-4x"></i>
                             </div>
@@ -30,7 +30,7 @@
 
                     </ul>
                 </div>
-            </div>
+                </div>
         </div>
         <div class="col-lg-3 col-md-3">
             <div class="panel panel-default toggle">
@@ -38,18 +38,19 @@
                     <h4 class="panel-title">Group sorting</h4>
                 </div>
                 <div class="panel-body">
-                        <div class="radio-custom">
-                            <input type="radio" name="radio" value="all_groups" id="all_groups">
-                            <label for="all_groups">All</label>
-                        </div>
-                        <div class="radio-custom">
-                            <input type="radio" name="radio" value="management_groups" checked="checked" id="management_groups">
-                            <label for="management_groups">Management</label>
-                        </div>
-                        <div class="radio-custom">
-                            <input type="radio" name="radio" value="owned_groups" id="owned_groups">
-                            <label for="owned_groups">Owned</label>
-                        </div>
+                    <div class="radio-custom">
+                        <input type="radio" name="radio" value="all_groups" id="all_groups">
+                        <label for="all_groups">All</label>
+                    </div>
+                    <div class="radio-custom">
+                        <input type="radio" name="radio" value="management_groups" checked="checked"
+                               id="management_groups">
+                        <label for="management_groups">Management</label>
+                    </div>
+                    <div class="radio-custom">
+                        <input type="radio" name="radio" value="owned_groups" id="owned_groups">
+                        <label for="owned_groups">Owned</label>
+                    </div>
                 </div>
             </div>
         </div>

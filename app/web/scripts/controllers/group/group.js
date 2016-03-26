@@ -18,17 +18,17 @@
             }];
 
             $scope.pages = [{
-                title: 'Group_Log',
+                title: 'Journal',
                 view: 'views/group/group-log.html',
                 index: 0,
                 active: true
             }, {
-                title: 'Group_Files',
+                title: 'Files',
                 view: 'views/group/group-files.html',
                 index: 1,
                 active: false
             }, {
-                title: 'Group_Settings',
+                title: 'Settings',
                 view: 'views/group/group-settings.html',
                 index: 2,
                 active: false
