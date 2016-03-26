@@ -44,7 +44,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div ng-if="detailInfo" id="detailInfo" class="well">
+                <div ng-if="model.element" id="detailInfo" class="well">
                     <div class="modal-header">
                         <button type="button" class="close" ng-click="closeDetails()">&times</button>
                         <h3>{{element.name}}</h3>
@@ -55,17 +55,17 @@
                                 <i class="fa fa-file-o"></i>
                             </div>
                             <div class="span8">
-                                <p>UID: {{element.uid}}</p>
-                                <p>Name: {{element.name}}</p>
-                                <p>Type: {{element.type}}</p>
-                                <p>Size: {{element.size/1024/1024|number:2}} Mb</p>
-                                <p>Owner: {{element.owner}}</p>
-                                <p>Creation Time: {{element.ctime}}</p>
+                                <p>UID: {{model.element.uid}}</p>
+                                <p>Name: {{model.element.name}}</p>
+                                <p>Type: {{model.element.type}}</p>
+                                <p>Size: {{model.element.size/1024/1024|number:2}} Mb</p>
+                                <p>Owner: {{model.element.owner}}</p>
+                                <p>Creation Time: {{model.element.ctime}}</p>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn" ng-click="download(element.url)">Download</button>
+                        <button type="button" class="btn" ng-click="download(model.element.url)">Download</button>
                         <button type="button" class="btn" ng-click="closeDetails()">Close</button>
                     </div>
                 </div>

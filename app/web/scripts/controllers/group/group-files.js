@@ -1,72 +1,68 @@
 (function(angular) {
     'use strict';
     angular.module('C3web.controllers')
-        .controller('group.groupFilesController', ['$scope', '$routeParams', 'GroupFilesService', function($scope, $routeParams, FilesService) {
-            /*$scope.elements=[{uid:'1', type:'dir',name:'TcpConnection terminated, stopping', size:'300 MB', owner:'Delar', ctime:'Tue, 17 Jun 2014 13:04:55 GMT'},
-            {uid:'2', type:'img', size:'10 MB',name:'TcpConnection terminated',  owner:'Delar', ctime:'Tue, 17 Jun 2014 13:04:55 GMT'},
-            {uid:'3', type:'txt', size:'1.2 MB',name:'TcpConnection terminated',  owner:'Delar', ctime:'Tue, 17 Jun 2014 13:04:55 GMT'}];*/
+        .controller('group.groupFilesController', ['_', '$scope', '$routeParams', '$window', 'GroupFilesService',
+            function(_, $scope, $routeParams, $window, FilesService) {
+                /*$scope.elements=[{uid:'1', type:'dir',name:'TcpConnection terminated, stopping', size:'300 MB', owner:'Delar', ctime:'Tue, 17 Jun 2014 13:04:55 GMT'},
+                {uid:'2', type:'img', size:'10 MB',name:'TcpConnection terminated',  owner:'Delar', ctime:'Tue, 17 Jun 2014 13:04:55 GMT'},
+                {uid:'3', type:'txt', size:'1.2 MB',name:'TcpConnection terminated',  owner:'Delar', ctime:'Tue, 17 Jun 2014 13:04:55 GMT'}];*/
 
-            $scope.elements = {};
-            $scope.rootFolder = "/" + $routeParams.id.toString();
-            $scope.currentPath = "/" + $routeParams.id.toString();
+                $scope.model = {
+                    elements: [],
+                    element: null,
+                    query: '',
+                    rootFolder: '/' + $routeParams.id,
+                    currentPath: '/' + $routeParams.id
+                };
 
-            $scope.updateFiles = function() {
-                $scope.load = function() {
+                var load = function() {
                     FilesService.list(encodeURIComponent($scope.currentPath)).then(function(result) {
-                        var elementArray = [];
-                        for (var i = 0; i < result.data.length; i++) {
-                            var file = result.data[i];
-                            var fileData = {};
-                            fileData.uid = i + 1;
-                            fileData.type = file.contentType;
-                            fileData.size = file.metadata.size;
-                            fileData.name = file.metadata.title;
-                            fileData.url = file.url;
-                            fileData.isFolder = file.isFolder;
-                            fileData.owner = file.metadata.owner;
-                            fileData.ctime = file.metadata.creationTime;
-                            elementArray.push(fileData);
-                        }
-                        $scope.elements = elementArray;
+                        $scope.model.elements = _.map(result, function(file, index) {
+                            var metadata = file.metadata || {};
+
+                            return {
+                                uid: index + 1,
+                                type: file.contentType,
+                                size: metadata.size,
+                                name: metadata.title,
+                                url: file.url,
+                                isFolder: file.isFolder,
+                                owner: metadata.owner,
+                                ctime: metadata.creationTime
+                            };
+                        });
                     });
                 };
 
-                $scope.detailInfo = false;
+                $scope.showDetails = function(element) {
+                    $scope.model.element = element;
 
-                $scope.load();
-
-            };
-
-            $scope.updateFiles();
-
-            $scope.showDetails = function(name) {
-                for (var i = 0; i < $scope.elements.length; i++) {
-                    if (name === $scope.elements[i].name) {
-                        $scope.element = $scope.elements[i];
+                    if ($scope.model.element.isFolder) {
+                        $scope.model.currentPath = $scope.model.element.url;
+                        load();
+                    } else {
+                        $scope.detailInfo = true;
                     }
-                }
-                if ($scope.element.isFolder) {
-                    $scope.currentPath = $scope.element.url;
-                    $scope.updateFiles();
-                } else {
-                    $scope.detailInfo = true;
-                }
-            };
+                };
 
-            $scope.goBack = function() {
-                if ($scope.currentPath != $scope.rootFolder) {
-                    $scope.currentPath = "/" + $scope.currentPath.split('/').slice(1, -1).join('/');
-                    $scope.updateFiles();
-                }
-            };
 
-            $scope.closeDetails = function() {
-                $scope.detailInfo = false;
-            };
+                $scope.hideDetails = function() {
+                    $scope.model.element = null;
+                };
 
-            $scope.download = function(url) {
-                var getFileUrl = "/api/download/" + encodeURIComponent(url);
-                window.open(getFileUrl);
-            };
-        }]);
+                $scope.goBack = function() {
+                    if ($scope.model.currentPath != $scope.model.rootFolder) {
+                        $scope.model.currentPath = "/" + $scope.model.currentPath.split('/').slice(1, -1).join('/');
+                        load();
+                    }
+                };
+
+                $scope.download = function(url) {
+                    var fileUrl = '/api/download/' + encodeURIComponent(url);
+                    $window.open(fileUrl);
+                };
+
+                load();
+            }
+        ]);
 })(angular);

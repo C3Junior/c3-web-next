@@ -2,12 +2,12 @@
     'use strict';
     angular.module('C3web.controllers')
         .controller('group.groupListController', ['$scope', 'GroupListService', function($scope, GroupListService) {
-            $scope.groups = {};
-            $scope.load = function() {
-                GroupListService.list().then(function(result) {
-                    $scope.groups = result.data;
-                });
+            $scope.model = {
+                groups: []
             };
-            $scope.load();
+
+            GroupListService.list().then(function(result) {
+                $scope.model.groups = result.data;
+            });
         }]);
 })(angular);
