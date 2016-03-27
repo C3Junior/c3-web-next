@@ -16,8 +16,8 @@
                 };
 
                 var load = function() {
-                    FilesService.list(encodeURIComponent($scope.currentPath)).then(function(result) {
-                        $scope.model.elements = _.map(result, function(file, index) {
+                    FilesService.list(encodeURIComponent($scope.model.currentPath)).then(function(result) {
+                        $scope.model.elements = _.map(result.data, function(file, index) {
                             var metadata = file.metadata || {};
 
                             return {
@@ -36,12 +36,10 @@
 
                 $scope.showDetails = function(element) {
                     $scope.model.element = element;
+                    $scope.model.currentPath = $scope.model.element.url;
 
                     if ($scope.model.element.isFolder) {
-                        $scope.model.currentPath = $scope.model.element.url;
                         load();
-                    } else {
-                        $scope.detailInfo = true;
                     }
                 };
 
@@ -53,6 +51,7 @@
                 $scope.goBack = function() {
                     if ($scope.model.currentPath != $scope.model.rootFolder) {
                         $scope.model.currentPath = "/" + $scope.model.currentPath.split('/').slice(1, -1).join('/');
+                        $scope.model.element = null;
                         load();
                     }
                 };
