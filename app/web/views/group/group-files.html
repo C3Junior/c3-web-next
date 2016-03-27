@@ -1,7 +1,7 @@
 <div class="" ng-controller="group.groupFilesController">
     <div>
         <ol class="breadcrumb">
-            <li><a href="#">{{model.group.groupname}}</a></li>
+            <li><a href="#/group/{{group.id}}">{{group.groupname}}</a></li>
             <li class="active">Данные</li>
             <div class="pull-right" role="toolbar" id="toolbar">
                 <div class="btn-group" role="group" aria-label="...">
@@ -57,9 +57,10 @@
                     </div>
                     <div class="modal-body">
                         <div class="row-fluid">
-                            <div class="span4">
-                                <img ng-src="img/{{model.element.type}}.png"/>
-                            </div>
+                            <td>
+                                <div ng-if="element.isFolder"><i class="fa fa-folder-o"/></div>
+                                <div ng-if="!element.isFolder"><i class="fa fa-file-o"/></div>
+                            </td>
                             <div class="span8">
                                 <p>UID: {{model.element.uid}}</p>
                                 <p>Name: {{model.element.name}}</p>

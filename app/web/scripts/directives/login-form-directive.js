@@ -39,7 +39,6 @@
                 }
             });
         };
-        //$scope.load();
     };
 
     controller.$inject = ['$scope', '$rootScope', 'LoginService', 'Data'];
