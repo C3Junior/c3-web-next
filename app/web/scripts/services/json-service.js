@@ -17,7 +17,7 @@
             var onSuccessCallBack = function() {
                 if (type != 'GET' && !noAlert) {
                     setOptionToastr();
-                    toastr.success("success_message", "success_title");
+                    toastr.success("Success", "Done");
                 }
             };
 
@@ -26,6 +26,7 @@
                 if (status === 0) {
                     return;
                 }
+
                 var timeout = 3000;
                 if (status == '555') {
                     var message = "";
@@ -33,15 +34,15 @@
                         message = message + " " + data.Errors[i].error + ";";
                     }
                     setOptionToastr();
-                    toastr.error("error_message" + message, "error_title");
+                    toastr.error("Error: " + message, "Something went wrong");
                 } else if (status == '101') {
                     setOptionToastr();
-                    toastr.error("error_message" + status, "error_title");
+                    toastr.error("Error: " + status, "Something went wrong");
                 } else if (status == '302') {
                     $location.reload(true);
                 } else {
                     setOptionToastr();
-                    toastr.error("error_message" + status, "error_title", 'trustedHtml');
+                    toastr.error("Error: " + status, "Something went wrong", 'trustedHtml');
                 }
             };
 

@@ -94,6 +94,7 @@ object Dependencies {
     Compile.luceneCore,
     Compile.luceneAnalyzers,
     Compile.luceneStandartAnalyzers,
+    Compile.joda,
     Test.scalatest, Test.spraytestkit, Test.specs2)
 
   object Compile {
@@ -110,6 +111,8 @@ object Dependencies {
     val luceneCore = "org.apache.lucene" % "lucene-core" % "5.4.1"
     var luceneAnalyzers = "org.apache.lucene" % "lucene-analyzers" % "3.6.2"
     var luceneStandartAnalyzers ="org.apache.lucene" % "lucene-analyzers-common" % "5.4.1"
+    var joda = "joda-time" % "joda-time" % "2.9.3"
+
   }
 
   object Test {
