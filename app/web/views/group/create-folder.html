@@ -1,0 +1,22 @@
+<div class="" ng-controller="createFolderController">
+    <div class="container">
+        <br/> <br/> <br/>
+        <form id="create-folder-form" class="col-lg-9 col-md-9">
+            <h2>Create folder</h2>
+            <fieldset>
+            <div class="form-group">
+                <label for="folderName" class="sr-only">Folder name</label>
+                <input required="" placeholder="Folder name" id="folderName" class="form-control folderName" type="text" name="folderName" ng-model="folder.name" required focus>
+            </div>
+            <div class="form-group">
+                <label class="sr-only">Tags</label>
+                <tags-input type="text" id="folderTags" name="folderTags" ng-model="folder.tags"/></tags-input>
+            </div>
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-success btn-block" type="submit" ng-click="createFolder(folder)" data-ng-disabled="folderForm.$invalid">Create</button>
+            </div>
+
+        </form>
+    </div>
+</div>
