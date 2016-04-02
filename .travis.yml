@@ -9,7 +9,6 @@ before_script:
   - npm install grunt --save-dev
 script:
   - sbt compile
-  - grunt build:dev
   - sbt test
 branches:
   -master
