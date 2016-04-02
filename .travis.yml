@@ -3,7 +3,6 @@ cache:
   directories:
   - .sbt
 before_script:
-  -npm install bower -g
   - npm install grunt-cli -g
 script:
   - sbt compile
