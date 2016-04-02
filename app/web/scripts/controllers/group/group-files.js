@@ -1,8 +1,8 @@
 (function(angular) {
     'use strict';
     angular.module('C3web.controllers')
-        .controller('group.groupFilesController', ['_', '$scope', '$routeParams', '$window', 'GroupFilesService',
-            function(_, $scope, $routeParams, $window, FilesService) {
+        .controller('group.groupFilesController', ['_', '$scope', '$stateParams', '$window', 'GroupFilesService',
+            function(_, $scope, $stateParams, $window, FilesService) {
                 /*$scope.elements=[{uid:'1', type:'dir',name:'TcpConnection terminated, stopping', size:'300 MB', owner:'Delar', ctime:'Tue, 17 Jun 2014 13:04:55 GMT'},
                  {uid:'2', type:'img', size:'10 MB',name:'TcpConnection terminated',  owner:'Delar', ctime:'Tue, 17 Jun 2014 13:04:55 GMT'},
                  {uid:'3', type:'txt', size:'1.2 MB',name:'TcpConnection terminated',  owner:'Delar', ctime:'Tue, 17 Jun 2014 13:04:55 GMT'}];*/
@@ -11,8 +11,8 @@
                     elements: [],
                     element: null,
                     query: '',
-                    rootFolder: '/' + $routeParams.id,
-                    currentPath: '/' + $routeParams.id
+                    rootFolder: '/' + $stateParams.id,
+                    currentPath: '/' + $stateParams.id
                 };
 
                 var load = function() {
@@ -50,7 +50,7 @@
 
                 $scope.goBack = function() {
                     if ($scope.model.currentPath != $scope.model.rootFolder) {
-                        $scope.model.currentPath = "/" + $scope.model.currentPath.split('/').slice(1, -1).join('/');
+                        $scope.model.currentPath = $scope.model.currentPath.split('/').slice(0, -1).join('/');
                         $scope.model.element = null;
                         load();
                     }

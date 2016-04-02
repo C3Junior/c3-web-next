@@ -1,15 +1,15 @@
 /**
  * Created by alexander on 3/30/16.
  */
-(function (angular, undefined) {
+(function(angular, undefined) {
     'use strict';
 
-    var userService = function (jsonService) {
+    var userService = function(jsonService) {
 
-        var user = function (userUID) {
+        var user = function(userUID) {
             return jsonService.get('user/' + userUID);
         };
-        var list = function () {
+        var list = function() {
             return jsonService.get('user');
         };
         return {

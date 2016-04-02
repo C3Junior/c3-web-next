@@ -1,16 +1,16 @@
 /**
  * Created by alexander on 3/30/16.
  */
-(function (angular, undefined) {
+(function(angular, undefined) {
     'use strict';
 
-    var service = function (jsonService) {
+    var service = function(jsonService) {
 
-        var list = function () {
+        var list = function() {
             return jsonService.get('journal');
         };
 
-        var get = function (messageID) {
+        var get = function(messageID) {
             return jsonService.get('journal/' + messageID);
         };
 

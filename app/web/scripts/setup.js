@@ -5,7 +5,7 @@
     angular.module('C3web', [
         // ng
         'ng',
-        'ngRoute',
+        'ui.router',
         'ngResource',
         'ngAnimate',
         'toastr',

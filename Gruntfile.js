@@ -2,7 +2,8 @@ module.exports = function(grunt) {
 
 	var globalConfig = {
 		src: 'app/web',
-		dist: 'c3web-server/src/main/resources/dist'
+		dist: 'c3web-server/src/main/resources/dist',
+		scalaResources: 'c3web-server/target/scala-2.10/classes/dist'
 	};
 
 	require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
@@ -121,6 +122,13 @@ module.exports = function(grunt) {
 		    			], 
 		    			cwd: '<%= globalConfig.src %>',
 		    			dest: '<%= globalConfig.dist %>'
+		    		}, { 
+		    			expand: true, 
+		    			src: [
+		    				'**'
+		    			], 
+		    			cwd: '<%= globalConfig.src %>',
+		    			dest: '<%= globalConfig.scalaResources %>'
 		    		}
 		    	]
 		  	},
@@ -134,6 +142,15 @@ module.exports = function(grunt) {
 		    			], 
 		    			cwd: '<%= globalConfig.src %>',
 		    			dest: '<%= globalConfig.dist %>'
+		    		}, { 
+		    			expand: true, 
+		    			src: [
+		    				'bower_components/**/*',
+		    				'index.html',
+		    				'views/**/*'
+		    			], 
+		    			cwd: '<%= globalConfig.src %>',
+		    			dest: '<%= globalConfig.scalaResources %>'
 		    		}
 		    	]	
 		  	}

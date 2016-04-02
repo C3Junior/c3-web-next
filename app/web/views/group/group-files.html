@@ -1,7 +1,8 @@
 <div class="" ng-controller="group.groupFilesController">
     <div>
         <ol class="breadcrumb">
-            <li><a href="#/group/{{group.id}}">{{group.groupname}}</a></li>
+            <!-- href="#/group/{{group.id}}" -->
+            <li><a ui-sref="group.files({id: group.id})">{{group.groupname}}</a></li>
             <li class="active">Данные</li>
             <div class="pull-right" role="toolbar" id="toolbar">
                 <div class="btn-group" role="group" aria-label="...">
@@ -10,12 +11,14 @@
                     </a>
                 </div>
                 <div class="btn-group" role="group" aria-label="...">
-                    <a href="#/upload{{model.currentPath}}" ref="tooltip" title="Add Resource">
+                    <!-- href="#/upload{{model.currentPath}}" -->
+                    <a ui-sref="upload({path: model.currentPath})" ref="tooltip" title="Add Resource">
                         <i class="fa fa-file"></i>
                     </a>
                 </div>
                 <div class="btn-group" role="group" aria-label="...">
-                    <a href="#/create{{model.currentPath}}" ref="tooltip" title="Create Folder">
+                    <!-- href="#/create{{model.currentPath}}" -->
+                    <a ui-sref="create-folder({path: model.currentPath})" ref="tooltip" title="Create Folder">
                         <i class="fa fa-folder-open"></i>
                     </a>
                 </div>

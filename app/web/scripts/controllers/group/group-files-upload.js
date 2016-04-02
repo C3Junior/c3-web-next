@@ -1,8 +1,8 @@
 (function(angular) {
     'use strict';
     angular.module('C3web.controllers')
-        .controller('fileUploadController', ['$scope', '$routeParams', '$http', 'FileUploader', '$sce',
-            function($scope, $routeParams, $http, FileUploader, $sce) {
+        .controller('fileUploadController', ['$scope', '$stateParams', '$http', 'FileUploader', '$sce',
+            function($scope, $stateParams, $http, FileUploader, $sce) {
                 $scope.model = {
                     tags: []
                 };
@@ -10,7 +10,7 @@
                 var uploader = $scope.uploader = new FileUploader({
                     url: '/api/file'
                 });
-                var currentPath = $sce.trustAsResourceUrl($routeParams.path);
+                var currentPath = $sce.trustAsResourceUrl($stateParams.path);
                 // FILTERS
 
                 uploader.filters.push({
