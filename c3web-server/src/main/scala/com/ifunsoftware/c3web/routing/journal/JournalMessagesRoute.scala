@@ -20,7 +20,7 @@ object JournalMessagesRoute {
 }
 
 /**
- * Actor that handles requests that begin with "user" (accounting)
+  * Actor that handles requests that begin with "journal"
  */
 class JournalMessagesRoute() extends Actor with JournalMessagesRouteTrait {
   def actorRefFactory = context
@@ -48,8 +48,8 @@ trait JournalMessagesRouteTrait extends HttpService with SprayJsonSupport {
         }
       } ~
         path(JavaUUID) { messageId =>
-          log.debug(s"Hitting Get Message by Id:${messageId}")
-          val message = journalMessagesService.getMessageById(messageId.toString)
+          log.debug(s"Hitting Get Message by Group Id:${messageId}")
+          val message = journalMessagesService.getMessageForGroupById(messageId.toString)
           complete(message)
         }
     } ~

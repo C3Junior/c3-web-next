@@ -6,7 +6,7 @@
 
     var service = function(jsonService) {
 
-        var list = function() {
+        var listAll = function () {
             return jsonService.get('journal');
         };
 
@@ -15,7 +15,7 @@
         };
 
         return {
-            list: list,
+            list: listAll,
             get: get
         };
     };

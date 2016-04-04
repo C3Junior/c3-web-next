@@ -4,37 +4,19 @@
     </div>
     <div>
         <ul class="timeline">
-            <li ng-repeat="message in model.messages">
-                <div class="timeline-badge success"><i class="fa fa-comment"></i></div>
-                <div class="timeline-panel">
-                    <div class="timeline-heading">
-                        <h4 class="timeline-title">{{message.username}}
-                            <small class="text-muted">{{message.nowdate}}</small>
-                        </h4>
-                    </div>
-                    <div class="timeline-body">
-                        <div class="form-group row">
-                            <div><textarea name="message" cols="40" rows="10" id="message.id"
-                                           class="form-control message" style="height: 62px; overflow: hidden;">{{message.content}}</textarea>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </li>
             <li>
                 <div class="timeline-badge success"><i class="fa fa-comment"></i></div>
                 <div class="timeline-panel">
                     <div class="timeline-heading">
-                        <h4 class="timeline-title">{{username}}
-                            <small class="text-muted">{{model.time}}</small>
+                        <h4 class="timeline-title">username
+                            <small class="text-muted">{{model.CurrentDate | date:'MM-dd-yyyy HH:mm'}}</small>
                         </h4>
                     </div>
                     <div class="timeline-body">
                         <div class="form-group row">
                             <div><textarea name="message" cols="40" rows="10" id="status_message"
                                            class="form-control message" style="height: 62px; overflow: hidden;"
-                                           placeholder="model.now"></textarea></div>
+                                           placeholder="Type new message here"></textarea></div>
                         </div>
                         <div class="form-group row">
                             <div class="pull-right">
@@ -44,56 +26,46 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </li>
+            <li ng-repeat="message in model.messages">
+                <div class="timeline-badge"
+                     ng-class="{'success': message.messagetype == 'message', 'info': message.messagetype == 'create_resource'}">
+                    <i class="fa"
+                       ng-class="{'fa-comment': message.messagetype == 'message', 'fa-upload': message.messagetype == 'create_resource'}"></i>
+                </div>
+                <div class="timeline-panel" data-ng-click="viewModel.showChooseHardware=!viewModel.showChooseHardware">
+                    <div class="timeline-heading">
+                        <h4 class="timeline-title">{{message.authorName}}
+                            <small class="text-muted">{{message.time | date:'MM-dd-yyyy HH:mm'}}</small>
+                        </h4>
+                    </div>
+                    <div class="timeline-body">
+                        <p ng-if="message.content != '' && message.messagetype == 'message'">{{message.content}}</p>
+                        <p ng-if="message.messagetype == 'create_resource'">RESOURCE UPLOADED</p>
+                        <p ng-if="message.messagetype == 'update_resource'">RESOURCE UPDATED</p>
+                        <p ng-if="message.messagetype == 'move_resource'">RESOURCE MOVED</p>
+                        <p ng-if="message.messagetype == 'approve_user_to_group'"> USER APPROVED</p>
 
-                </div>
-            </li>
-            <li>
-                <div class="timeline-badge"><i class="fa fa-comment"></i></div>
-                <div class="timeline-panel">
-                    <div class="timeline-heading">
-                        <h4 class="timeline-title">ТБД
-                            <small class="text-muted">1.04.2016 17:20</small>
-                        </h4>
-                    </div>
-                    <div class="timeline-body">
-                        <p>Работа над журналом идет?</p>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="timeline-badge info"><i class="fa fa-upload"></i></div>
-                <div class="timeline-panel">
-                    <div class="timeline-heading">
-                        <h4 class="timeline-title">ADMIN
-                            <small class="text-muted">29.03.2016 17:00</small>
-                        </h4>
-                    </div>
-                    <div class="timeline-body">
-                        <p>UPLOADED RESOURCE</p>
-                        <hr>
-                        <a href="#">
-                            <small class="text-muted"><i class="fa fa-file"></i> TESTFILE.TXT</small>
-                        </a>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="timeline-badge"><i class="fa fa-comment"></i></div>
-                <div class="timeline-panel">
-                    <div class="timeline-heading">
-                        <h4 class="timeline-title">ALEX
-                            <small class="text-muted">17.03.2016 01:00</small>
-                        </h4>
-                    </div>
-                    <div class="timeline-body">
-                        <p>Что будем делать с системой в итоге?</p>
-                        <hr>
-                        <div class="form-group row">
-                            <textarea class="form-control" rows="1" placeholder="Type your comment"></textarea>
+                        <div ng-repeat="attachedResource in message.attachedResources">
+                            <hr>
+                            <a href="#">
+                                <small class="text-muted"><i class="fa fa-file"></i> {{attachedResource | uppercase}}
+                                </small>
+                            </a>
                         </div>
-                        <div class="form-group row">
-                            <button type="button" class="btn btn-default">Comment</button>
-                            <button type="button" class="btn btn-default">Cancel</button>
+                        <div data-ng-hide="viewModel.showChooseHardware">
+                            <hr>
+                            <div class="form-group row">
+                                <textarea class="form-control" rows="1" placeholder="Type your comment"></textarea>
+                            </div>
+                            <div class="form-group row">
+                                <button type="button" class="btn btn-default">Comment</button>
+                                <button type="button" class="btn btn-default"
+                                        data-ng-click="viewModel.showChooseHardware=!viewModel.showChooseHardware">
+                                    Cancel
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
