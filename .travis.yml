@@ -5,20 +5,22 @@ cache:
 node_js:
   - "0.8"
   - "0.10"
-before_script:
-  - npm install grunt --save-dev
-script:
-  - sbt compile
-  - sbt test
-branches:
-  -master
 scala:
   - 2.10.5
 jdk:
   - oraclejdk7
   - openjdk7
-
+before_install:
+  - npm install grunt -g --save-dev
+install: 
+  - npm install
+before_script: 
+  - grunt build:dev
+script:
+  - sbt compile
+  - sbt test
+branches:
+  -master
 notifications:
   email:
     - mrparovoz@gmail.com
-  
