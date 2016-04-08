@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
     angular.module('C3web.controllers')
-        .controller('group.groupLogController', ['$scope', '$stateParams', 'GroupLogService', function ($scope, $stateParams, GroupLogService) {
+        .controller('group.groupLogController', ['$scope', '$stateParams', 'GroupLogService', function($scope, $stateParams, GroupLogService) {
             $scope.model = {
                 messages: []
             };
@@ -10,7 +10,7 @@
             };
             $scope.model.CurrentDate = new Date();
             var idGroup = $stateParams.id;
-            GroupLogService.get(idGroup).then(function (result) {
+            GroupLogService.get(idGroup).then(function(result) {
                 $scope.model.messages = _.map(result.data, function(message, index) {
                     return {
                         uid: message.id,
@@ -25,7 +25,7 @@
             });
 
             $scope.model.showComment = false;
-            $scope.addMessage = function () {
+            $scope.addMessage = function() {
                 console.log('Adding new message');
                 $scope.model.showComment = true;
             };

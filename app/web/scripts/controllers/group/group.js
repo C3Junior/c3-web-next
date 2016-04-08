@@ -6,44 +6,24 @@
                 $scope.group = {};
                 var idGroup = $stateParams.id;
 
-                $scope.load = function() {
+                var load = function() {
                     GroupListService.get(idGroup).then(function(result) {
                         $scope.group = result.data;
-                        $scope.selectedPage = $scope.pages[0];
                     });
                 };
-                $scope.titles = [{
-                    title: 'Grp'
-                }, {
-                    title: 'Role_Profile_Edit_title'
-                }];
 
-                $scope.pages = [{
+                $scope.tabs = [{
                     title: 'Journal',
-                    view: 'views/group/group-log.html',
-                    index: 0,
-                    active: true
+                    state: 'group.journal'
                 }, {
                     title: 'Files',
-                    view: 'views/group/group-files.html',
-                    index: 1,
-                    active: false
+                    state: 'group.files'
                 }, {
                     title: 'Settings',
-                    view: 'views/group/group-settings.html',
-                    index: 2,
-                    active: false
+                    state: 'group.settings'
                 }];
-                $scope.load();
 
-                $scope.selectPage = function(index) {
-                    angular.forEach($scope.pages, function(value) {
-                        value.active = false;
-                    });
-
-                    $scope.pages[index].active = true;
-                    $scope.selectedPage = $scope.pages[index];
-                };
+                load();
             }
         ]);
 })(angular);

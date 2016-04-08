@@ -4,6 +4,7 @@ angular.module('C3web')
             $locationProvider.html5Mode(false);
 
             $urlRouterProvider.otherwise('/');
+            $urlRouterProvider.when('/group/:id', '/group/:id/journal');
 
             $stateProvider
                 .state('root', {
@@ -21,21 +22,21 @@ angular.module('C3web')
                     templateUrl: 'views/group/group.html',
                     controller: 'group.groupController'
                 })
-                // .state('group.journal', {
-                //     url: '/journal',
-                //     templateUrl: 'views/group/group-log.html',
-                //     controller: 'group.groupLogController'
-                // })
-                // .state('group.settings', {
-                //     url: '/settings',
-                //     templateUrl: 'views/group/group-settings.html',
-                //     controller: 'group.groupSettingsController'
-                // })
-                // .state('group.files', {
-                //     url: '/files',
-                //     templateUrl: 'views/group/group-files.html',
-                //     controller: 'group.groupFilesController'
-                // })
+                .state('group.journal', {
+                    url: '/journal',
+                    templateUrl: 'views/group/group-log.html',
+                    controller: 'group.groupLogController'
+                })
+                .state('group.settings', {
+                    url: '/settings',
+                    templateUrl: 'views/group/group-settings.html',
+                    controller: 'group.groupSettingsController'
+                })
+                .state('group.files', {
+                    url: '/files',
+                    templateUrl: 'views/group/group-files.html',
+                    controller: 'group.groupFilesController'
+                })
                 .state('upload', {
                     url: '/upload/:path*',
                     templateUrl: 'views/group/group-file-upload.html',
