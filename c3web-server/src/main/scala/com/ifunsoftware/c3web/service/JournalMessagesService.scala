@@ -2,14 +2,15 @@ package com.ifunsoftware.c3web.service
 
 import java.util.UUID
 
-import com.ifunsoftware.c3web.data.{JournalMessagesData}
-import com.ifunsoftware.c3web.models.{JournalMessage}
+import com.ifunsoftware.c3web.data.{ JournalMessagesData }
+import com.ifunsoftware.c3web.models.{ JournalMessage }
 import spray.routing.RequestContext
 import sun.applet.resources.MsgAppletViewer
+import org.joda.time.DateTime
 
 /**
-  * Created by alexander on 1/8/2016.
-  */
+ * Created by alexander on 1/8/2016.
+ */
 object JournalMessagesService {
 
   import JournalMessagesData.messagesMock
@@ -21,18 +22,18 @@ object JournalMessagesService {
     journalMessages.map(msg => {
       val userName = userService.getUserById(msg.authorId) match {
         case Some(user) => Option(user.toString)
-        case None => Option("unknown")
+        case None       => Option("unknown")
       }
       val newMessage = msg.copy(authorName = userName)
       updateMessage(newMessage)
-    }
-    )
+    })
     journalMessages.toList
   }
 
   def addMessage(message: JournalMessage): JournalMessage = {
     val maxId = UUID.randomUUID();
-    val newmessage = message.copy(id = maxId.toString)
+    val newmessage = message.copy(
+      id = Option(maxId.toString), messageType = Option("message"), time = Option(DateTime.now().toString))
     messagesMock += newmessage
     newmessage
   }
@@ -40,14 +41,14 @@ object JournalMessagesService {
   def updateMessage(message: JournalMessage): Boolean = {
     messagesMock.indexWhere(_.id == message.id) match {
       case -1 => false
-      case i => messagesMock.update(i, message); true
+      case i  => messagesMock.update(i, message); true
     }
   }
 
   def deleteMessage(id: String): Unit = {
     getMessageById(id) match {
       case Some(message) => messagesMock -= message
-      case None       =>
+      case None          =>
     }
   }
 
@@ -60,12 +61,11 @@ object JournalMessagesService {
     journalMessages.map(msg => {
       val userName = userService.getUserById(msg.authorId) match {
         case Some(user) => Option(user.toString)
-        case None => Option("unknown")
+        case None       => Option("unknown")
       }
       val newMessage = msg.copy(authorName = userName)
       updateMessage(newMessage)
-    }
-    )
+    })
     journalMessages.toList
   }
 }

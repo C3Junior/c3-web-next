@@ -10,8 +10,9 @@ object JournalMessageEntryJson extends DefaultJsonProtocol {
   implicit val messageFormat = jsonFormat9(JournalMessage.apply)
 }
 
-case class JournalMessage(groupId: String, authorId: String, content: String, id: String,
-                          attachedResources: List[String], messageType: String, parent: Option[String] = None, authorName: Option[String] = None, time: Option[String]) {
+case class JournalMessage(groupId: String, authorId: String, content: String, id: Option[String] = None,
+                          attachedResources: List[String], messageType: Option[String] = None,
+                          parent: Option[String] = None, authorName: Option[String] = None, time: Option[String]) {
 
   override def toString = {
     val builder = new StringBuilder("Message{")

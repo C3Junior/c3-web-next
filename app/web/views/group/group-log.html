@@ -5,24 +5,35 @@
     <div>
         <ul class="timeline">
             <li>
-                <div class="timeline-badge success"><i class="fa fa-comment"></i></div>
+                <div class="timeline-badge success">
+                    <i class="fa fa-comment"></i>
+                </div>
                 <div class="timeline-panel">
                     <div class="timeline-heading">
                         <h4 class="timeline-title">username
-                            <small class="text-muted">{{model.CurrentDate | date:'MM-dd-yyyy HH:mm'}}</small>
+                            <small class="text-muted">{{model.currentDate | date:'MM-dd-yyyy HH:mm'}}</small>
                         </h4>
                     </div>
                     <div class="timeline-body">
                         <div class="form-group row">
-                            <div><textarea name="message" cols="40" rows="10" id="status_message"
-                                           class="form-control message" style="height: 62px; overflow: hidden;"
-                                           placeholder="Type new message here"></textarea></div>
+                            <div>
+                                <textarea id="status_message"
+                                          name="message" 
+                                          class="form-control message" 
+                                          style="height: 62px; overflow: hidden;"
+                                          cols="40" 
+                                          rows="10" 
+                                          placeholder="Type new message here"
+                                          ng-model="model.newMessage"></textarea>
+                            </div>
                         </div>
                         <div class="form-group row">
                             <div class="pull-right">
-                                <button type="submit" class="btn btn-primary"><i class="fa fa-file"></i> Attach
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fa fa-file"></i> Attach
                                 </button>
-                                <button type="submit" class="btn btn-primary">Post</button>
+                                <button class="btn btn-primary"
+                                        ng-click="addMessage();">Post</button>
                             </div>
                         </div>
                     </div>
@@ -30,22 +41,27 @@
             </li>
             <li ng-repeat="message in model.messages">
                 <div class="timeline-badge"
-                     ng-class="{'success': message.messagetype == 'message', 'info': message.messagetype == 'create_resource'}">
+                     ng-class="{'success': message.type == 'message', 'info': message.type == 'create_resource'}">
                     <i class="fa"
-                       ng-class="{'fa-comment': message.messagetype == 'message', 'fa-upload': message.messagetype == 'create_resource'}"></i>
+                       ng-class="{'fa-comment': message.type == 'message', 'fa-upload': message.type == 'create_resource'}"></i>
                 </div>
-                <div class="timeline-panel" data-ng-click="viewModel.showChooseHardware=!viewModel.showChooseHardware">
+                <div class="timeline-panel">
                     <div class="timeline-heading">
-                        <h4 class="timeline-title">{{message.authorName}}
+                        <h4 class="timeline-title">{{message.author}}
                             <small class="text-muted">{{message.time | date:'MM-dd-yyyy HH:mm'}}</small>
+                            <a href="" class="pull-right">
+                                <i class="glyphicon" 
+                                   ng-class="message.collapsed ? 'glyphicon-chevron-down' : 'glyphicon-chevron-up'"
+                                   ng-click="message.collapsed = !message.collapsed"></i>
+                            </a>
                         </h4>
                     </div>
                     <div class="timeline-body">
-                        <p ng-if="message.content != '' && message.messagetype == 'message'">{{message.content}}</p>
-                        <p ng-if="message.messagetype == 'create_resource'">RESOURCE UPLOADED</p>
-                        <p ng-if="message.messagetype == 'update_resource'">RESOURCE UPDATED</p>
-                        <p ng-if="message.messagetype == 'move_resource'">RESOURCE MOVED</p>
-                        <p ng-if="message.messagetype == 'approve_user_to_group'"> USER APPROVED</p>
+                        <p ng-if="message.content != '' && message.type == 'message'">{{message.content}}</p>
+                        <p ng-if="message.type == 'create_resource'">RESOURCE UPLOADED</p>
+                        <p ng-if="message.type == 'update_resource'">RESOURCE UPDATED</p>
+                        <p ng-if="message.type == 'move_resource'">RESOURCE MOVED</p>
+                        <p ng-if="message.type == 'approve_user_to_group'"> USER APPROVED</p>
 
                         <div ng-repeat="attachedResource in message.attachedResources">
                             <hr>
@@ -54,17 +70,13 @@
                                 </small>
                             </a>
                         </div>
-                        <div data-ng-hide="viewModel.showChooseHardware">
+                        <div ng-if="!message.collapsed">
                             <hr>
                             <div class="form-group row">
                                 <textarea class="form-control" rows="1" placeholder="Type your comment"></textarea>
                             </div>
                             <div class="form-group row">
                                 <button type="button" class="btn btn-default">Comment</button>
-                                <button type="button" class="btn btn-default"
-                                        data-ng-click="viewModel.showChooseHardware=!viewModel.showChooseHardware">
-                                    Cancel
-                                </button>
                             </div>
                         </div>
                     </div>

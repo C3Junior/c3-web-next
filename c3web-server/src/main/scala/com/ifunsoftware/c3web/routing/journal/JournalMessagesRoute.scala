@@ -20,7 +20,7 @@ object JournalMessagesRoute {
 }
 
 /**
-  * Actor that handles requests that begin with "journal"
+ * Actor that handles requests that begin with "journal"
  */
 class JournalMessagesRoute() extends Actor with JournalMessagesRouteTrait {
   def actorRefFactory = context
@@ -63,7 +63,7 @@ trait JournalMessagesRouteTrait extends HttpService with SprayJsonSupport {
       (put & path(JavaUUID) & pathEnd) { messageId =>
         entity(as[JournalMessage]) { message =>
           log.debug(s"updating a message with the id: ${messageId}")
-          val updatedMessage = journalMessagesService.updateMessage(message.copy(id = messageId.toString))
+          val updatedMessage = journalMessagesService.updateMessage(message.copy(id = Option(messageId.toString)))
           updatedMessage match {
             case true  => complete(StatusCodes.NoContent)
             case false => complete(StatusCodes.NotFound)

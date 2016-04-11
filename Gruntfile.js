@@ -132,6 +132,18 @@ module.exports = function(grunt) {
 		    		}
 		    	]
 		  	},
+            scalaRes: {
+                files: [
+                    {
+                        expand: true,
+                        src: [
+                            '**'
+                        ],
+                        cwd: '<%= globalConfig.dist %>',
+                        dest: '<%= globalConfig.scalaResources %>'
+                    }
+                ]   
+            },
 		  	prod: {
 		  		files: [{ 
 		    			expand: true, 
@@ -227,7 +239,8 @@ module.exports = function(grunt) {
     			'clean:all',
     			'copy:dev',
     			'wiredep:dev',
-    			'htmlbuild:dev'
+    			'htmlbuild:dev',
+                'copy:scalaRes'
     		]);
     	} else if (arg === 'prod') {
     		grunt.task.run([
