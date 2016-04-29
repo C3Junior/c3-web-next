@@ -18,6 +18,7 @@ before_script:
   - grunt build:dev
 script:
   - sbt compile
+  - sbt stage
   - sbt test
 branches:
   -master
