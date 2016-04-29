@@ -1,5 +1,6 @@
 import com.typesafe.sbt.SbtScalariform
 import com.typesafe.sbt.SbtScalariform.ScalariformKeys
+import com.typesafe.sbt.packager.archetypes.JavaAppPackaging
 import org.scalastyle.sbt.ScalastylePlugin
 import sbt.Keys._
 import sbt._
@@ -19,6 +20,7 @@ object C3WebBuild extends Build {
    * Server module
    */
   lazy val c3web_server = Project("c3web-server", file("c3web-server"))
+    .enablePlugins(JavaAppPackaging)
     .settings(defaultSettings: _*)
     .settings(c3webAssemblySettings: _*)
     .settings(Revolver.settings: _*)
