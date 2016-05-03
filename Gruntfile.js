@@ -63,7 +63,8 @@ module.exports = function(grunt) {
 		        			cwd: '<%= globalConfig.dist %>',
 		        			files: [
 		        				'scripts/services/**/*.js',
-		        				'scripts/directives/**/*.js',
+                                'scripts/filters/**/*.js',
+                                'scripts/directives/**/*.js',
 		        				'scripts/controllers/**/*.js'
 		        			]
 		        		},
@@ -92,7 +93,8 @@ module.exports = function(grunt) {
 		        		app: {
 		        			cwd: '<%= globalConfig.dist %>',
 		        			files: [
-		        				'scripts/services.min.js', 
+		        				'scripts/services.min.js',
+                                'scripts/filters.min.js',
 		        				'scripts/controllers.min.js',
 		        				'scripts/directives.min.js'
 		        			]
@@ -111,6 +113,12 @@ module.exports = function(grunt) {
 		        }
 	        }
     	},
+
+        karma: {
+            unit: {
+                configFile: 'app/test/karma.conf.js'
+            }
+        },
 
 		copy: {
 		  	dev: {
@@ -177,6 +185,8 @@ module.exports = function(grunt) {
 						],
 					'<%= globalConfig.dist %>/scripts/services.min.js': 
 						['<%= globalConfig.dist %>/temp/scripts/services/**/*.js'],
+                    '<%= globalConfig.dist %>/scripts/filters.min.js':
+                        ['<%= globalConfig.dist %>/temp/scripts/filters/**/*.js'],
 					'<%= globalConfig.dist %>/scripts/controllers.min.js': 
 						['<%= globalConfig.dist %>/temp/scripts/controllers/**/*.js'],
 					'<%= globalConfig.dist %>/scripts/directives.min.js': 
@@ -214,6 +224,11 @@ module.exports = function(grunt) {
 			        src: 'scripts/controllers/**/*.js',
 			        dest: '<%= globalConfig.dist%>/temp'
 				}, {
+                    expand: true,
+                    cwd: '<%= globalConfig.src %>',
+                    src: 'scripts/filters/**/*.js',
+                    dest: '<%= globalConfig.dist%>/temp'
+                }, {
 					expand: true,
 			        cwd: '<%= globalConfig.src %>',
 			        src: 'scripts/services/**/*.js',

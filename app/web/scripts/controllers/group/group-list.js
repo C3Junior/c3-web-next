@@ -3,6 +3,7 @@
     angular.module('C3web.controllers')
         .controller('group.groupListController', ['$scope', 'GroupListService', function($scope, GroupListService) {
             $scope.model = {
+                filter: '',
                 groups: []
             };
 

@@ -2,10 +2,10 @@
     <div class="container">
         <div class="col-lg-9 col-md-9">
             <div class="row input-group" style="padding-bottom: 5px">
-                <input type="text" class="form-control input-rounded" name="default">
-                <span class="input-group-btn">
-                    <button class="btn btn-success disabled" type="button">Filter</button>
-                </span>
+                <input type="text" class="form-control input-rounded" ng-model="model.filter" name="search">
+                <!--<span class="input-group-btn">-->
+                    <!--<button class="btn btn-success disabled" type="button">Filter</button>-->
+                <!--</span>-->
             </div>
             <div class="row panel panel-default plain toggle">
                 <div class="panel-heading">
@@ -14,13 +14,16 @@
                 <div class="panel-body">
                     <ul class="list-group recent-comments">
                         <li class="list-group-item clearfix comment-success"
-                            ng-repeat="group in model.groups | orderBy:'+groupname'">
+                            ng-repeat="group in model.groups | filter: model.filter | orderBy: '+groupname' ">
                             <div class="avatar pull-left mr15">
                                 <i class="fa fa-comments fa-4x"></i>
                             </div>
-                            <h4 class="list-group-item-heading">{{group.groupname}}</h4>
-                            <p class="list-group-item-text">{{group.description}}</p>
-                            <span class="date text-muted small pull-left">Creater {{group.uid}}</span>
+                            <h4 class="list-group-item-heading"
+                                ng-bind-html="group.groupname | highlight: model.filter"></h4>
+                            <p class="list-group-item-text"
+                               ng-bind-html="group.description | highlight: model.filter"></p>
+                            <span class="date text-muted small pull-left"
+                                  ng-bind-html="group.uid | highlight: model.filter"></span>
                             <a ui-sref="group({id: group.id})" class="see-more small pull-right">
                                 <span class="pull-right">
                                     <i class="fa fa-2x fa-arrow-circle-right"></i>

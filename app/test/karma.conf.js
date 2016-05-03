@@ -16,6 +16,7 @@ module.exports = function (config) {
             'web/scripts/components/**/*.js',
             'web/scripts/controllers/**/*.js',
             'web/scripts/directives/**/*.js',
+            'web/scripts/filters/**/*.js',
             'web/scripts/services/**/*.js',
 
             'test/unit/**/*.js'
@@ -26,13 +27,15 @@ module.exports = function (config) {
         frameworks: ['jasmine'],
 
         browsers: [
-            'Chrome'
+            'PhantomJS'
+            //'Chrome'
             //'Firefox'
         ],
 
         plugins: [
             'karma-chrome-launcher',
-            //'karma-firefox-launcher',
+            'karma-firefox-launcher',
+            'karma-phantomjs-launcher',
             'karma-jasmine'
         ],
 
