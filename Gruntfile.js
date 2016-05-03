@@ -240,9 +240,22 @@ module.exports = function(grunt) {
 			        dest: '<%= globalConfig.dist%>/temp'
 				}]
 			}
-		}
+		},
+
+        watch: {
+            all: {
+                tasks: ['build:dev'],
+                //autoreload all html files
+                files: '<%= globalConfig.src %>/**/*.html',
+                options: {
+                    livereload: true
+                }
+            }
+        }
 	});
 
+    //enable live reloading
+    grunt.loadNpmTasks('grunt-contrib-watch');
     // task setup 
     grunt.registerTask('default', []);
 
