@@ -16,16 +16,14 @@
                     </div>
                     <div class="timeline-body">
                         <div class="form-group row">
-                            <div>
                                 <textarea id="status_message"
                                           name="message" 
-                                          class="form-control message" 
-                                          style="height: 62px; overflow: hidden;"
-                                          cols="40" 
+                                          class="form-control message"
+                                          style="height: 60px; max-width: 100%;"
+                                          cols="20"
                                           rows="10" 
                                           placeholder="Type new message here"
                                           ng-model="model.newMessage"></textarea>
-                            </div>
                         </div>
                         <div class="form-group row">
                             <div class="pull-right">
@@ -73,10 +71,23 @@
                         <div ng-if="!message.collapsed">
                             <hr>
                             <div class="form-group row">
-                                <textarea class="form-control" rows="1" placeholder="Type your comment"></textarea>
+                                <textarea id="child_comment"
+                                          name="comment"
+                                          class="form-control message"
+                                          style="height: 40px; max-width: 100%;"
+                                          cols="20"
+                                          rows="5"
+                                          placeholder="Type you comment here"
+                                          ng-model="model.newChildMessage"></textarea>
                             </div>
                             <div class="form-group row">
-                                <button type="button" class="btn btn-default">Comment</button>
+                                <div class="pull-right">
+                                    <button type="submit" class="btn btn-primary btn-sm">
+                                        <i class="fa fa-file"></i> Attach
+                                    </button>
+                                    <button class="btn btn-primary btn-sm"
+                                            ng-click="addMessage();">Post</button>
+                                </div>
                             </div>
                         </div>
                     </div>
