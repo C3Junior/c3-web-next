@@ -6,6 +6,7 @@
                 $scope.model = {
                     messages: [],
                     newMessage: '',
+                    newChildMessage: '',
                     showComment: false,
                     currentDate: new Date()
                 };
@@ -26,7 +27,7 @@
                                 time: Date.parse(message.time),
                                 type: message.messageType,
                                 attachedResources: message.attachedResources,
-                                collapsed: false
+                                collapsed: true
                             };
                         });
                     });
