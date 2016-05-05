@@ -9,7 +9,7 @@ scala:
   - 2.10.5
 jdk:
   - oraclejdk7
-  - openjdk7
+  - oraclejdk8
 before_install:
   - npm install grunt -g --save-dev
 install: 
