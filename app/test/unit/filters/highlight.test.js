@@ -41,4 +41,14 @@ describe('highlight filter', function () {
         var filtered = highlight('[2]$ is not expensive', '[2]$');
         expect(filtered).toEqual('<span class="highlighted">[2]$</span> is not expensive');
     });
+    
+    it('should return undefined if text is not defined', function () {
+        var filtered = highlight(undefined, 'text');
+        expect(filtered).toBeUndefined();
+    });
+    
+    it('should return text if filter is not defined', function () {
+        var filtered = highlight('text');
+        expect(filtered).toBe('text');
+    });
 });
