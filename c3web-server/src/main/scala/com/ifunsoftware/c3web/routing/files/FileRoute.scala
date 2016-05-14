@@ -14,6 +14,9 @@ import spray.httpx.marshalling.BasicMarshallers
 import spray.routing.HttpService
 import spray.routing.directives.ChunkSizeMagnet
 import spray.httpx.SprayJsonSupport._
+import spray.json._
+import DefaultJsonProtocol._
+import com.ifunsoftware.c3web.models.AnnotationTokenEntryJson._
 
 /**
  * Created by alexander on 15.11.15.
@@ -61,7 +64,10 @@ trait FileRouteTrait extends HttpService with SprayJsonSupport {
         (url, fileContent, name, size, tags, fileType, contentType, isFolder) =>
           log.debug("posting to create a File")
 
-          val metadata = new Metadata(name, size, "admin", tags, fileType, Calendar.getInstance().getTime().toString)
+          log.debug("Tags: " + tags)
+
+          val tokenList = tags.parseJson.convertTo[List[AnnotationToken]]
+          val metadata = new Metadata(name, size, "admin", tokenList, fileType, Calendar.getInstance().getTime().toString)
           val file = new File(url, metadata, Option(fileContent.toCharArray.map(_.toByte)), contentType, isFolder.toBoolean)
           val newFile = filesService.addFile(file)
 

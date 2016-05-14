@@ -94,7 +94,14 @@
                         fileSize: item.file.size
                     });
                     item.formData.push({
-                        fileTags: $scope.model.tags
+                        fileTags: JSON.stringify(
+                            item.annotation.map(function(i) {
+                                return {
+                                    text: i.word,
+                                    weight: i.frequency,
+                                    isUserDefined: false
+                                };
+                            }))
                     });
                     item.formData.push({
                         fileType: 'Other'
