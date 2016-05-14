@@ -1,5 +1,11 @@
 <section id="services">
     <div class="container">
+        <style>
+            div.tag {
+                display: inline;
+                color: grey;
+            }
+        </style>
         <div class="col-lg-9 col-md-9">
             <div class="row input-group" style="padding-bottom: 5px">
                 <input type="text" class="form-control input-rounded" ng-model="model.filter" name="search">
@@ -24,6 +30,11 @@
                                ng-bind-html="group.description | highlight: model.filter"></p>
                             <span class="date text-muted small pull-left"
                                   ng-bind-html="group.uid | highlight: model.filter"></span>
+                            <div ng-repeat="keyword in group.annotation | orderBy: '+normalizedWeight'"
+                                 class="tag"
+                                 ng-style="{opacity: keyword.normalizedWeight}">
+                                {{ keyword.tag }}
+                            </div>
                             <a ui-sref="group({id: group.id})" class="see-more small pull-right">
                                 <span class="pull-right">
                                     <i class="fa fa-2x fa-arrow-circle-right"></i>
