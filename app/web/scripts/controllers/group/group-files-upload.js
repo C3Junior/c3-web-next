@@ -3,12 +3,6 @@
     angular.module('C3web.controllers')
         .controller('fileUploadController', ['$scope', '$stateParams', '$http', 'FileUploader', '$sce',
             function($scope, $stateParams, $http, FileUploader, $sce) {
-                $scope.model = {
-                    tags: []
-                };
-
-
-
                 var uploader = $scope.uploader = new FileUploader({
                     url: '/api/file'
                 });
@@ -61,8 +55,9 @@
 
                 function annotateFile(fileBytes) {
                     var res = {};
-                    res.data = parseTextData(bytesToString(fileBytes), res, "dict").slice(0, 20);
-                    $scope.model.tags = res.data;
+                    return parseTextData(bytesToString(fileBytes), res, "dict").sort(function(a, b) {
+                        return a.frequency - b.frequency;
+                    }).slice(0, 20);
                 }
 
 
@@ -72,15 +67,15 @@
                     console.info('onWhenAddingFileFailed', item, filter, options);
                 };
                 uploader.onAfterAddingFile = function(fileItem) {
-                    var fileList = $("[type='file']")[0].files;
                     var fr = new FileReader();
-                    if (FileReader && fileList && fileList.length) {
-                        fr.readAsArrayBuffer(fileList[0]);
-                        fr.onload = function() {
-                            var imageData = fr.result;
-                            annotateFile(imageData);
-                        };
-                    }
+                    fileItem.annotation = [];
+                    fr.readAsArrayBuffer(fileItem._file);
+                    fr.onload = function() {
+                        var data = fr.result;
+                        fileItem.annotation = annotateFile(data);
+                        $scope.$apply();
+                    };
+                    //}
 
                     console.info('onAfterAddingFile', fileItem);
                 };

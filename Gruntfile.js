@@ -62,6 +62,8 @@ module.exports = function(grunt) {
 		        		app: {
 		        			cwd: '<%= globalConfig.dist %>',
 		        			files: [
+                                'scripts/annotation/stemmers.js',
+                                'scripts/annotation/annotation-functions.js',
 		        				'scripts/services/**/*.js',
                                 'scripts/filters/**/*.js',
                                 'scripts/directives/**/*.js',
@@ -93,6 +95,7 @@ module.exports = function(grunt) {
 		        		app: {
 		        			cwd: '<%= globalConfig.dist %>',
 		        			files: [
+                                'scripts/annotation.min.js',
 		        				'scripts/services.min.js',
                                 'scripts/filters.min.js',
 		        				'scripts/controllers.min.js',
@@ -183,6 +186,8 @@ module.exports = function(grunt) {
 							'<%= globalConfig.dist %>/temp/scripts/setup.js',
 							'<%= globalConfig.dist %>/temp/scripts/app.js'
 						],
+                    '<%= globalConfig.dist %>/scripts/annotation.min.js':
+                        ['<%= globalConfig.dist %>/temp/scripts/annotation/**/*.js'],
 					'<%= globalConfig.dist %>/scripts/services.min.js': 
 						['<%= globalConfig.dist %>/temp/scripts/services/**/*.js'],
                     '<%= globalConfig.dist %>/scripts/filters.min.js':
@@ -238,7 +243,12 @@ module.exports = function(grunt) {
 			        cwd: '<%= globalConfig.src %>',
 			        src: 'scripts/directives/**/*.js',
 			        dest: '<%= globalConfig.dist%>/temp'
-				}]
+				}, {
+                    expand: true,
+                    cwd: '<%= globalConfig.src %>',
+                    src: 'scripts/annotation/**/*.js',
+                    dest: '<%= globalConfig.dist%>/temp'
+                }]
 			}
 		},
 
@@ -251,11 +261,45 @@ module.exports = function(grunt) {
                     livereload: true
                 }
             }
+        },
+
+        connect: {
+            server: {
+                options: {
+                    port: 3000,
+                    hostname: 'localhost',
+                    middleware: function (connect, options) {
+                        var middlewares = [];
+
+                        if (!Array.isArray(options.base)) {
+                            options.base = [options.base];
+                        }
+
+                        // Setup the proxy
+                        middlewares.push(require('grunt-connect-proxy/lib/utils').proxyRequest);
+
+                        // Serve static files
+                        options.base.forEach(function (base) {
+                            middlewares.push(connect.static(base));
+                        });
+
+                        return middlewares;
+                    }
+                },
+                proxies: [
+                    {
+                        context: '/api',
+                        host: 'localhost',
+                        port: 9000,
+                        https: false,
+                        xforward: false,
+                        hideHeaders: ['x-removed-header']
+                    }
+                ]
+            }
         }
 	});
 
-    //enable live reloading
-    grunt.loadNpmTasks('grunt-contrib-watch');
     // task setup 
     grunt.registerTask('default', []);
 
@@ -285,4 +329,13 @@ module.exports = function(grunt) {
     		grunt.log.error('Argument ' + arg + ' is not defined');
     	}
     });
+
+    grunt.registerTask('serve', 'Run dev proxy server', function () {
+        //grunt.log.info('Serve is starting');
+        grunt.task.run([
+            'build:dev',
+            'configureProxies:server',
+            'watch'
+        ]);
+    })
 };

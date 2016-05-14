@@ -32,7 +32,7 @@
                                   ng-bind-html="group.uid | highlight: model.filter"></span>
                             <div ng-repeat="keyword in group.annotation | orderBy: '+normalizedWeight'"
                                  class="tag"
-                                 ng-style="{opacity: keyword.normalizedWeight}">
+                                 ng-style="{opacity: 1 - keyword.normalizedWeight}">
                                 {{ keyword.tag }}
                             </div>
                             <a ui-sref="group({id: group.id})" class="see-more small pull-right">

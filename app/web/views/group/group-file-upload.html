@@ -1,29 +1,6 @@
-<!-- 1. nv-file-drop="" uploader="{Object}" options="{Object}" filters="{String}" -->
-<script type="text/javascript" src="scripts/annotation/stemmers.js"></script>
-<script type="text/javascript" src="scripts/annotation/annotation-functions.js"></script>
-<div ng-controller="fileUploadController" nv-file-drop="" uploader="uploader" filters="queueLimit, customFilter">
+<section id="services">
 
-<div class="container">
-
-    <div class="navbar navbar-default">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="https://github.com/nervgh/angular-file-upload">Angular File Upload</a>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li class="active dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Demos <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li class="active"><a href="#">Simple example</a></li>
-                        <li><a href="../image-preview">Uploads only images (with canvas preview)</a></li>
-                        <li><a href="../without-bootstrap">Without bootstrap example</a></li>
-                    </ul>
-                </li>
-                <li><a href="https://github.com/nervgh/angular-file-upload">View on Github</a></li>
-                <li><a href="https://raw.github.com/nervgh/angular-file-upload/master/angular-file-upload.min.js">Download</a></li>
-            </ul>
-        </div>
-    </div>
+    <div class="container">
 
     <div class="row">
 
@@ -83,7 +60,10 @@
                         <div class="form-group"><label for="inp_Name">Name:</label><input type="text" id="inp_Name" class="form-control" value="{{item.file.name}}"></div>
                         <div>
                             <b>Annotation:</b>
-                            <tags-input type="text" ng-model="model.tags" id="inp_Annotation" />
+                            <tags-input type="text"
+                                        ng-model="item.annotation"
+                                        key-property="word"
+                                        display-property="word"/>
                         </div>
                         <div class="form-group"><label for="sel_Type">Type:</label>
                             <select id="sel_Type" class="form-control">
@@ -144,5 +124,4 @@
 
 </div>
 
-</div>
-</html>
+</section>

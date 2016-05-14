@@ -502,38 +502,41 @@ var parseTextData = function(data, res, dictName) {
     //taTokens3.push('.');
     //taTokens3.push('.');
     var ress = findStemsInDict(taTokens3, arrHashDict[dictName]); //получаем хэш таблицу со словарными понятиями и их частотой
-    var keysRess = []; //массив словарных понятий
-    var valuesRess = []; //массив частот
+    var result = [];
     for (var key in ress) {
-        keysRess.push(key);
-        valuesRess.push(ress[key]);
+        result.push({
+            word: key,
+            frequency: ress[key]
+        });
     }
-    //var chartData=[];
-    var keysAndFreqs = new Array(keysRess.length);
-    for (i = 0; i < keysRess.length; i++) {
-        keysAndFreqs[i] = new Array(2);
-        keysAndFreqs[i][0] = keysRess[i];
-        keysAndFreqs[i][1] = valuesRess[i];
-    }
-    // Сортировка по частоте
-    keysAndFreqs.sort(function(a, b) {
-        if (a[1] < b[1]) return 1;
-        else if (a[1] > b[1]) return -1;
-        else return 0;
-    });
-    // Сортировка по частоте
-    valuesRess.sort(function(a, b) {
-        return b - a;
-    });
-    /*res.render('result', {
-        title: 'Tag Annotation Service',
-        text1: data,
-        pKeysOrigAndFreq: keysAndFreqs,
-        tokenText1: taTokens3,
-        chartData: valuesRess
-    });*/
 
-    return keysRess;
+    return result;
+    ////var chartData=[];
+    //var keysAndFreqs = new Array(keysRess.length);
+    //for (i = 0; i < keysRess.length; i++) {
+    //    keysAndFreqs[i] = new Array(2);
+    //    keysAndFreqs[i][0] = keysRess[i];
+    //    keysAndFreqs[i][1] = valuesRess[i];
+    //}
+    //// Сортировка по частоте
+    //keysAndFreqs.sort(function(a, b) {
+    //    if (a[1] < b[1]) return 1;
+    //    else if (a[1] > b[1]) return -1;
+    //    else return 0;
+    //});
+    //// Сортировка по частоте
+    //valuesRess.sort(function(a, b) {
+    //    return b - a;
+    //});
+    ///*res.render('result', {
+    //    title: 'Tag Annotation Service',
+    //    text1: data,
+    //    pKeysOrigAndFreq: keysAndFreqs,
+    //    tokenText1: taTokens3,
+    //    chartData: valuesRess
+    //});*/
+    //
+    //return keysRess;
 };
 
 
